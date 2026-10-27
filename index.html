@@ -90,97 +90,52 @@
       .feu-orange, .feu-rouge { animation: none !important; box-shadow: 0 4px 6px -1px rgba(0,0,0,.12) !important; }
     }
 
-  /* ── Écran mobile animé (intégré 27/10) ── */
-@keyframes subtle-pulse{
-    0%,100%{ transform:scale(1)    rotate(0deg);  opacity:1 }
-    50%    { transform:scale(1.22) rotate(-4deg); opacity:.92 }
-  }
-  @keyframes live-ping{
-    0%  { transform:scale(.85); opacity:.85 }
-    50% { transform:scale(2.1);  opacity:1 }
-    100%{ transform:scale(.85); opacity:.85 }
-  }
-  @keyframes warn-glow{
-    0%,100%{ box-shadow:0 0 0 0 rgba(245,158,11,.75); transform:scale(1) }
-    50%    { box-shadow:0 0 0 16px rgba(245,158,11,0); transform:scale(1.09) }
-  }
-  @keyframes float-arrow{
-    0%,100%{ transform:translateY(0) }
-    50%    { transform:translateY(-7px) }
-  }
-  @keyframes sheen{
-    0%  { transform:translateX(-150%) }
-    100%{ transform:translateX(260%) }
-  }
-  /* nouvelles : plus visibles */
-  @keyframes shake-alert{
-    0%,100%{ transform:rotate(0deg) }
-    25%    { transform:rotate(-3deg) }
-    75%    { transform:rotate(3deg) }
-  }
-  @keyframes card-rise{
-    0%,100%{ transform:translateY(0);   box-shadow:0 8px 18px -8px rgba(233,83,20,.55) }
-    50%    { transform:translateY(-4px); box-shadow:0 16px 26px -8px rgba(233,83,20,.75) }
-  }
-  @keyframes row-slide{
-    0%,100%{ transform:translateX(0) }
-    50%    { transform:translateX(5px) }
-  }
-  @keyframes pulse-ring{
-    0%  { transform:scale(.9); opacity:.7 }
-    70% { transform:scale(1.9); opacity:0 }
-    100%{ transform:scale(1.9); opacity:0 }
-  }
+  /* ── Écran mobile animé — design réel des alertes (27/10) ── */
+  @keyframes np-pulse{0%,100%{transform:scale(1) rotate(0)}50%{transform:scale(1.22) rotate(-4deg)}}
+  @keyframes np-ping{0%{transform:scale(.85);opacity:.85}50%{transform:scale(2.1);opacity:1}100%{transform:scale(.85);opacity:.85}}
+  @keyframes np-glow{0%,100%{box-shadow:0 0 0 0 rgba(224,44,55,.65);transform:scale(1)}50%{box-shadow:0 0 0 14px rgba(224,44,55,0);transform:scale(1.08)}}
+  @keyframes np-rise{0%,100%{transform:translateY(0);box-shadow:0 8px 18px -8px rgba(232,89,11,.5)}50%{transform:translateY(-4px);box-shadow:0 16px 26px -8px rgba(232,89,11,.72)}}
+  @keyframes np-ring{0%{transform:scale(.9);opacity:.7}70%{transform:scale(1.9);opacity:0}100%{transform:scale(1.9);opacity:0}}
+  @keyframes np-nudge{0%,100%{transform:translateX(0)}50%{transform:translateX(4px)}}
 
-  .anim-badge{ animation:subtle-pulse 1.4s infinite ease-in-out; transform-origin:center; }
-  .anim-live{ animation:live-ping 1.2s infinite ease-in-out; }
-  .anim-warn{ animation:warn-glow 1.6s infinite ease-in-out; }
-  .anim-arrow{ animation:float-arrow 1.5s infinite ease-in-out; }
-  .anim-card{ animation:card-rise 2.4s infinite ease-in-out; }
-  .anim-row{ animation:row-slide 2.6s infinite ease-in-out; }
-  .anim-row:nth-of-type(2){ animation-delay:.18s }
-  .anim-row:nth-of-type(3){ animation-delay:.36s }
+  .np-screen .a-badge{animation:np-pulse 1.4s infinite ease-in-out;transform-origin:center}
+  .np-screen .a-live{animation:np-ping 1.2s infinite ease-in-out}
+  .np-screen .a-warn{animation:np-glow 1.6s infinite ease-in-out}
+  .np-screen .a-card{animation:np-rise 2.4s infinite ease-in-out}
+  .np-screen .a-nudge{animation:np-nudge 1.8s infinite ease-in-out}
+  .np-screen .livewrap{position:relative;display:inline-flex;align-items:center;justify-content:center}
+  .np-screen .livewrap::before{content:'';position:absolute;inset:-2px;border-radius:999px;background:rgba(22,163,74,.5);animation:np-ring 1.6s infinite ease-out}
 
-  .sheen{ position:relative; overflow:hidden; }
-  .sheen::after{
-    content:''; position:absolute; top:0; left:0; width:40%; height:100%;
-    background:linear-gradient(100deg,transparent,rgba(255,255,255,.85),transparent);
-    animation:sheen 2.2s infinite ease-in-out;
-  }
+  .np-screen .statusbar{height:52px;flex-shrink:0;display:flex;align-items:flex-end;justify-content:space-between;padding:0 27px 6px;font-size:14px;font-weight:700;color:#0f172a;letter-spacing:.2px}
+  .np-screen .statusbar .icons{display:flex;align-items:center;gap:6px}
+  .np-screen .bars{display:flex;align-items:flex-end;gap:2px;height:11px}
+  .np-screen .bars i{width:3px;background:#0f172a;border-radius:1px;display:block}
+  .np-screen .bars i:nth-child(1){height:4px} .np-screen .bars i:nth-child(2){height:6px}
+  .np-screen .bars i:nth-child(3){height:8.5px} .np-screen .bars i:nth-child(4){height:11px}
+  .np-screen .batt{width:24px;height:12px;border:1.6px solid #0f172a;border-radius:3.5px;position:relative;display:flex;align-items:center;padding:1.5px}
+  .np-screen .batt::after{content:'';position:absolute;right:-4px;top:50%;transform:translateY(-50%);width:2px;height:4.5px;background:#0f172a;border-radius:0 1px 1px 0}
+  .np-screen .batt b{display:block;height:100%;width:72%;background:#0f172a;border-radius:1.5px}
+  .np-screen .scroll{flex:1;overflow-y:auto;overflow-x:hidden;scrollbar-width:none}
+  .np-screen .scroll::-webkit-scrollbar{display:none}
 
-  /* double anneau autour de la pastille "En direct" */
-  .live-wrap{ position:relative; display:inline-flex; align-items:center; justify-content:center; }
-  .live-wrap::before{
-    content:''; position:absolute; inset:-2px; border-radius:999px;
-    background:rgba(22,163,74,.5);
-    animation:pulse-ring 1.6s infinite ease-out;
-  }
-
-  @media (prefers-reduced-motion:reduce){
-    .anim-badge,.anim-live,.anim-warn,.anim-arrow,.anim-card,.anim-row,
-    .sheen::after,.live-wrap::before{ animation:none !important; }
-  }
-  @media (prefers-reduced-motion:reduce){
-    .anim-badge,.anim-live,.anim-warn,.anim-arrow,.sheen::after{ animation:none !important; }
-  }
-  .np-screen{ width:390px; height:844px; transform:scale(0.87179487); transform-origin:top left; display:flex; flex-direction:column; background:#f7faff; padding-top:34px; box-sizing:border-box; }
-
-  .np-screen .statusbar{ height:52px; flex-shrink:0; display:flex; align-items:flex-end; justify-content:space-between; padding:0 27px 6px; font-size:14px; font-weight:700; color:#0f172a; letter-spacing:.2px; }
-  .np-screen .statusbar .icons{ display:flex; align-items:center; gap:6px; }
-  .np-screen .bars{ display:flex; align-items:flex-end; gap:2px; height:11px; }
-  .np-screen .bars i{ width:3px; background:#0f172a; border-radius:1px; display:block; }
-  .np-screen .bars i:nth-child(1){ height:4px } .np-screen .bars i:nth-child(2){ height:6px }
-  .np-screen .bars i:nth-child(3){ height:8.5px } .np-screen .bars i:nth-child(4){ height:11px }
-  .np-screen .batt{ width:24px; height:12px; border:1.6px solid #0f172a; border-radius:3.5px; position:relative; display:flex; align-items:center; padding:1.5px; }
-  .np-screen .batt::after{ content:''; position:absolute; right:-4px; top:50%; transform:translateY(-50%); width:2px; height:4.5px; background:#0f172a; border-radius:0 1px 1px 0; }
-  .np-screen .batt b{ display:block; height:100%; width:72%; background:#0f172a; border-radius:1.5px; }
+  .np-screen{ width:390px; height:844px; transform:scale(0.87179487); transform-origin:top left;
+    display:flex; flex-direction:column; background:#f7faff; padding-top:34px; box-sizing:border-box; position:relative; }
   .np-bezel{ width:340px; height:735.8px; position:relative; flex-shrink:0; }
-  .np-bezel::before{ content:''; position:absolute; inset:-12px; border-radius:52px; background:linear-gradient(150deg,#3a3f47 0%,#14171c 22%,#0b0d10 50%,#1b1f25 78%,#454b54 100%); box-shadow:0 0 0 1px rgba(0,0,0,.5), 0 32px 60px -18px rgba(16,35,70,.42); }
-  .np-bezel::after{ content:''; position:absolute; inset:0; border-radius:40px; overflow:hidden; }
+  .np-bezel::before{ content:''; position:absolute; inset:-12px; border-radius:52px;
+    background:linear-gradient(150deg,#3a3f47 0%,#14171c 22%,#0b0d10 50%,#1b1f25 78%,#454b54 100%);
+    box-shadow:0 0 0 1px rgba(0,0,0,.5), 0 32px 60px -18px rgba(16,35,70,.42); }
   .np-viewport{ position:absolute; inset:0; border-radius:40px; overflow:hidden; background:#f7faff; z-index:1; }
-  .np-island{ position:absolute; top:9px; left:50%; transform:translateX(-50%); width:104px; height:30px; border-radius:18px; background:#000; z-index:20; display:flex; align-items:center; justify-content:flex-end; padding-right:11px; }
-  .np-island i{ width:8px; height:8px; border-radius:50%; background:#0d1b2a; box-shadow:0 0 0 1px rgba(90,120,160,.45) inset, 0 0 4px rgba(60,140,255,.35) inset; display:block; }
-  .np-homebar{ position:absolute; bottom:7px; left:50%; transform:translateX(-50%); width:110px; height:4px; border-radius:3px; background:#0b1220; opacity:.92; z-index:20; }
+  .np-island{ position:absolute; top:9px; left:50%; transform:translateX(-50%); width:104px; height:30px; border-radius:18px;
+    background:#000; z-index:20; display:flex; align-items:center; justify-content:flex-end; padding-right:11px; }
+  .np-island i{ width:8px; height:8px; border-radius:50%; background:#0d1b2a;
+    box-shadow:0 0 0 1px rgba(90,120,160,.45) inset, 0 0 4px rgba(60,140,255,.35) inset; display:block; }
+  .np-homebar{ position:absolute; bottom:7px; left:50%; transform:translateX(-50%); width:110px; height:4px;
+    border-radius:3px; background:#0b1220; opacity:.92; z-index:20; }
+
+  @media (prefers-reduced-motion:reduce){
+    .np-screen .a-badge,.np-screen .a-live,.np-screen .a-warn,
+    .np-screen .a-card,.np-screen .a-nudge,.np-screen .livewrap::before{ animation:none !important; }
+  }
 </style>
 </head>
 <body class="font-sans text-slate-800 bg-[#f8faff] antialiased selection:bg-brand-blue selection:text-white">
@@ -280,7 +235,7 @@
 </div>
 </div>
 <!-- Floating Gamified Badge Right -->
-<div class="absolute -bottom-14 -right-8 z-20 bg-white border-2 border-amber-400 p-2.5 rounded-2xl shadow-xl flex items-center gap-2 max-w-[196px]">
+<div class="absolute -bottom-16 -right-4 z-20 bg-white border-2 border-amber-400 p-2 rounded-2xl shadow-xl flex items-center gap-2 max-w-[188px]">
 <div class="w-10 h-10 rounded-xl bg-amber-500 text-white flex items-center justify-center text-xl font-black"><svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.268 21a2 2 0 0 0 3.464 0"/><path d="M3.262 15.326A1 1 0 0 0 4 17h16a1 1 0 0 0 .74-1.673C19.41 13.956 18 12.499 18 8A6 6 0 0 0 6 8c0 4.499-1.411 5.956-2.738 7.326"/></svg>
 </div>
 <div>
@@ -292,9 +247,8 @@
 <div class="np-bezel">
 <div class="np-viewport">
 <div class="relative overflow-hidden" style="width:340px;height:735.8px;border-radius:40px;">
-<div class="np-screen" role="img" aria-label="Tableau de bord Nettoyeur Pro : magasin Mallemort, santé du magasin en direct, 3 chambres froides à relever, 0 vert, 3 en attente, 0 danger">
-<!-- Barre de statut iOS -->
-    <div class="statusbar">
+<div class="np-screen" role="img" aria-label="Tableau de bord Nettoyeur Pro : magasin Mallemort, 4 alertes à régler, 1 chambre froide à relever, 1 vert, 4 en attente, 0 danger, deux cartes À traiter, modules magasin 8 zones, menu">
+<div class="statusbar">
       <span>9:41</span>
       <span class="icons">
         <span class="bars"><i></i><i></i><i></i><i></i></span>
@@ -307,24 +261,23 @@
       </span>
     </div>
 
-    <div class="content flex-1 flex flex-col min-h-0 px-4 pt-1 pb-2">
+    <div class="scroll">
+      <div class="px-4 pb-2">
 
         <!-- En-tête -->
-        <header class="flex items-center justify-between pt-1 pb-4 px-1">
-          <h1 class="text-[24px] font-extrabold text-[#206bee] tracking-tight leading-none">NettoyeurPro</h1>
+        <header class="flex items-center justify-between pt-0.5 pb-2.5 px-0.5">
+          <h1 class="text-[23px] font-extrabold text-[#206bee] tracking-tight leading-none">NettoyeurPro</h1>
           <div class="flex items-center gap-2.5">
-            <button aria-label="Notifications" class="relative w-11 h-11 rounded-2xl bg-[#ecf2fa] flex items-center justify-center active:scale-95 transition-transform">
-              <svg class="w-[22px] h-[22px] fill-[#2b72e5]" viewBox="0 0 24 24" aria-hidden="true">
-                <path d="M12 22c1.1 0 2-.9 2-2h-4c0 1.1.89 2 2 2zm6-6v-5c0-3.07-1.64-5.64-4.5-6.32V4c0-.83-.67-1.5-1.5-1.5s-1.5.67-1.5 1.5v.68C7.63 5.36 6 7.92 6 11v5l-2 2v1h16v-1l-2-2z"/>
-              </svg>
-              <span class="anim-badge absolute top-1.5 right-2 bg-[#df2323] text-white text-[10px] font-bold rounded-full w-[17px] h-[17px] flex items-center justify-center border-2 border-[#ecf2fa]">3</span>
+            <button aria-label="Notifications" class="relative w-11 h-11 rounded-2xl bg-[#ecf2fa] flex items-center justify-center">
+              <svg class="w-[22px] h-[22px] fill-[#2b72e5]" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 22c1.1 0 2-.9 2-2h-4c0 1.1.89 2 2 2zm6-6v-5c0-3.07-1.64-5.64-4.5-6.32V4c0-.83-.67-1.5-1.5-1.5s-1.5.67-1.5 1.5v.68C7.63 5.36 6 7.92 6 11v5l-2 2v1h16v-1l-2-2z"/></svg>
+              <span class="a-badge absolute top-1.5 right-2 bg-[#df2323] text-white text-[10px] font-bold rounded-full w-[17px] h-[17px] flex items-center justify-center border-2 border-[#ecf2fa]">4</span>
             </button>
-            <div class="w-11 h-11 rounded-2xl bg-[#1b64e5] text-white flex items-center justify-center font-bold text-[15px] tracking-wide shadow-sm">CJ</div>
+            <div class="w-11 h-11 rounded-2xl bg-[#1b64e5] text-white flex items-center justify-center font-bold text-[15px]">CJ</div>
           </div>
         </header>
 
         <!-- Sélecteur de magasin -->
-        <section class="bg-[#e9f1fe] rounded-3xl px-4 py-3.5 mb-4 flex items-center justify-between">
+        <section class="bg-[#e9f1fe] rounded-3xl px-4 py-2.5 mb-2.5 flex items-center justify-between">
           <div class="flex flex-col gap-1">
             <span class="bg-[#1664e8] text-white text-[10px] font-extrabold px-2.5 py-[3px] rounded-full uppercase tracking-wider w-max">Magasin</span>
             <div class="flex items-center gap-1.5 pt-0.5">
@@ -333,152 +286,151 @@
             </div>
             <span class="text-[#206bee] font-semibold text-[12px] leading-tight">Magasin n° 0421</span>
           </div>
-          <button class="bg-white px-3.5 py-2.5 rounded-2xl flex items-center gap-1.5 shadow-sm border border-blue-50 text-[#1b62e2] font-bold text-[13px] active:scale-95 transition-transform">
+          <button class="bg-white px-3.5 py-2.5 rounded-2xl flex items-center gap-1.5 shadow-sm border border-blue-50 text-[#1b62e2] font-bold text-[13px]">
             <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4" stroke-linecap="round" stroke-linejoin="round"/></svg>
             <span>Changer</span>
           </button>
         </section>
 
         <!-- Titre -->
-        <section class="flex items-start justify-between px-1 mb-3">
+        <section class="flex items-start justify-between px-0.5 mb-2.5">
           <div class="flex-1 pr-2">
-            <h2 class="text-[23px] font-extrabold text-[#111928] tracking-tight leading-tight">Tableau express</h2>
-            <p class="text-[#64748b] text-[12.5px] font-medium leading-snug mt-1">L'état du magasin en un regard</p>
+            <h2 class="text-[22px] font-extrabold text-[#111928] tracking-tight leading-tight">Tableau express</h2>
+            <p class="text-[#64748b] text-[12px] font-medium leading-snug mt-0.5">L'état du magasin en un regard</p>
           </div>
           <div class="bg-[#fef3c7] border border-[#fde68a] text-[#854d0e] rounded-full px-2.5 py-1 flex items-center gap-1.5 shrink-0 self-center">
             <span class="w-1.5 h-1.5 rounded-full bg-[#854d0e] inline-block"></span>
-            <span class="text-[10.5px] font-bold whitespace-nowrap">Magasin actif</span>
+            <span class="text-[10px] font-bold whitespace-nowrap">Magasin actif</span>
           </div>
         </section>
 
-        <!-- Santé du magasin -->
-        <section class="bg-white rounded-[26px] border border-slate-100 p-3.5 shadow-[0_4px_20px_rgba(0,0,0,.03)] mb-3">
-          <div class="flex items-center justify-between pb-3 px-0.5">
-            <div class="flex items-center gap-2 text-[#334155]">
-              <svg class="w-[18px] h-[18px] fill-[#334155]" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 4H4v2h16V4zm1 10v-2l-1-5H4l-1 5v2h1v6h10v-6h4v6h2v-6h1zm-9 4H6v-4h6v4z"/></svg>
-              <span class="text-[12px] font-extrabold tracking-wider uppercase">Santé du magasin</span>
+        <!-- SANTÉ DU MAGASIN -->
+        <section class="bg-white rounded-[24px] border border-slate-100 p-2.5 shadow-[0_4px_20px_rgba(0,0,0,.03)] mb-2.5">
+
+          <div class="flex items-center justify-between pb-2.5 px-0.5">
+            <div class="flex items-center gap-1.5 text-[#334155]">
+              <svg class="w-[17px] h-[17px] fill-[#334155]" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 4H4v2h16V4zm1 10v-2l-1-5H4l-1 5v2h1v6h10v-6h4v6h2v-6h1zm-9 4H6v-4h6v4z"/></svg>
+              <span class="text-[11.5px] font-extrabold tracking-wider uppercase">Santé du magasin</span>
             </div>
             <div class="bg-[#ecfdf3] text-[#15803d] rounded-full px-2.5 py-0.5 flex items-center gap-1.5 border border-[#dcfce7]">
-              <span class="live-wrap"><span class="anim-live w-1.5 h-1.5 rounded-full bg-[#16a34a] inline-block"></span></span>
-              <span class="text-[11px] font-bold">En direct</span>
+              <span class="livewrap"><span class="a-live w-1.5 h-1.5 rounded-full bg-[#16a34a] inline-block"></span></span>
+              <span class="text-[10.5px] font-bold">En direct</span>
             </div>
           </div>
 
-          <div class="bg-[#fffbeb] border border-[#fde68a] rounded-[22px] p-3.5 flex items-center gap-3 mb-3">
+          <!-- BANDEAU ROUGE — fidèle à l'app réelle -->
+          <div class="rounded-[20px] pl-3 pr-2.5 py-2.5 flex items-center gap-2.5 mb-2" style="background:#ffeaed;border:1px solid #fbd0d4;">
             <div class="relative shrink-0">
-              <div class="anim-warn w-[52px] h-[52px] rounded-full bg-[#f59e0b] flex items-center justify-center text-white relative">
-                <svg class="w-6 h-6 fill-white" viewBox="0 0 24 24" aria-hidden="true"><path d="M1 21h22L12 2 1 21zm12-3h-2v-2h2v2zm0-4h-2v-4h2v4z"/></svg>
+              <div class="a-warn w-[46px] h-[46px] rounded-full flex items-center justify-center" style="background:#e02c37;">
+                <svg class="w-[24px] h-[24px] fill-white" viewBox="0 0 24 24" aria-hidden="true"><path d="M1 21h22L12 2 1 21zm12-3h-2v-2h2v2zm0-4h-2v-4h2v4z"/></svg>
               </div>
-              <span class="absolute -top-0.5 -right-0.5 w-3 h-3 bg-white border-2 border-[#f59e0b] rounded-full"></span>
+              <span class="absolute -top-0.5 -right-0.5 w-3 h-3 rounded-full bg-white" style="border:2px solid #e02c37;"></span>
             </div>
-            <div class="flex flex-col min-w-0">
-              <span class="text-[#b45309] text-[10px] font-extrabold tracking-wider uppercase">À relever</span>
-              <h3 class="text-[#b45309] text-[18px] font-black tracking-tight leading-tight uppercase">3 chambres froides</h3>
-              <p class="text-[#4b5563] text-[11.5px] font-medium mt-0.5 leading-snug">Relevé du matin non fait</p>
+            <div class="flex flex-col min-w-0 flex-1">
+              <span class="text-[9.5px] font-extrabold tracking-widest uppercase leading-none" style="color:#b22f3f;">Action requise</span>
+              <h3 class="text-[19px] font-black tracking-tight uppercase leading-[1.05] mt-0.5" style="color:#ad3d49;">4 alertes à régler !</h3>
+              <p class="text-[11px] font-semibold mt-1 leading-none" style="color:#5b6472;">1 chambre froide à relever</p>
             </div>
           </div>
 
-          <div class="grid grid-cols-3 gap-2">
-            <div class="bg-[#f0f4f9] rounded-full py-2 px-1 flex items-center justify-center gap-1.5 border border-slate-100">
-              <span class="w-2 h-2 rounded-full bg-[#8fa1b8] inline-block"></span>
-              <span class="text-[#475569] font-extrabold text-[11px] whitespace-nowrap">0 Vert</span>
+          <!-- Pastilles — couleurs réelles -->
+          <div class="grid grid-cols-3 gap-1.5">
+            <div class="rounded-full py-1.5 px-1 flex items-center justify-center gap-1.5" style="background:#e8fbf0;border:1px solid #a7e0bf;">
+              <span class="w-2 h-2 rounded-full inline-block" style="background:#12a150;"></span>
+              <span class="text-[10.5px] font-extrabold" style="color:#0b6e3a;">1 Vert</span>
             </div>
-            <div class="bg-[#fef8e7] border border-[#fbdc8d] rounded-full py-2 px-1 flex items-center justify-center gap-1.5">
-              <span class="w-2 h-2 rounded-full bg-[#eab308] inline-block"></span>
-              <span class="text-[#854d0e] font-extrabold text-[11px] whitespace-nowrap">3 Attente</span>
+            <div class="rounded-full py-1.5 px-1 flex items-center justify-center gap-1.5" style="background:#fdf7dc;border:1px solid #f2dd9a;">
+              <span class="w-2 h-2 rounded-full inline-block" style="background:#d9a52b;"></span>
+              <span class="text-[10.5px] font-extrabold" style="color:#8a6210;">4 Attente</span>
             </div>
-            <div class="bg-[#f0f4f9] rounded-full py-2 px-1 flex items-center justify-center gap-1.5 border border-slate-100">
-              <span class="w-2 h-2 rounded-full bg-[#94a3b8] inline-block"></span>
-              <span class="text-[#475569] font-extrabold text-[11px] whitespace-nowrap">0 Danger</span>
+            <div class="rounded-full py-1.5 px-1 flex items-center justify-center gap-1.5" style="background:#eef1f4;border:1px solid #dbe1e8;">
+              <span class="w-2 h-2 rounded-full inline-block" style="background:#94a3b8;"></span>
+              <span class="text-[10.5px] font-extrabold" style="color:#475569;">0 Danger</span>
             </div>
-          </div>
-        </section>
-
-        <!-- À TRAITER — remplit jusqu'à la barre d'onglets, plus aucun vide -->
-        <section class="anim-card bg-[#e95314] rounded-[26px] p-3.5 pb-0 text-white flex-1 flex flex-col min-h-0 mt-3 overflow-hidden">
-          <div class="flex items-center justify-between">
-            <div class="flex items-center gap-2">
-              <svg class="w-[18px] h-[18px] fill-white" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 22c1.1 0 2-.9 2-2h-4c0 1.1.89 2 2 2zm6-6v-5c0-3.07-1.64-5.64-4.5-6.32V4c0-.83-.67-1.5-1.5-1.5s-1.5.67-1.5 1.5v.68C7.63 5.36 6 7.92 6 11v5l-2 2v1h16v-1l-2-2z"/></svg>
-              <h3 class="text-[18px] font-black tracking-wide uppercase">À traiter</h3>
-            </div>
-            <svg class="anim-arrow w-5 h-5" fill="none" stroke="currentColor" stroke-width="2.6" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 15l7-7 7 7" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          </div>
-          <p class="text-white/95 text-[12px] font-medium pl-0.5 mt-0.5 mb-3">3 chambres froides · relevé du matin</p>
-
-          <!-- Les 3 chambres froides : remplit la carte jusqu'a la barre d'onglets -->
-          <div class="flex flex-col gap-1.5 flex-1 min-h-0 pb-3">
-
-            <div class="anim-row bg-white rounded-xl px-3 py-2 flex items-center gap-2.5">
-              <div class="w-7 h-7 rounded-lg bg-[#fef8e7] border border-[#fbdc8d] flex items-center justify-center shrink-0">
-                <svg class="w-3.5 h-3.5 fill-[#b45309]" viewBox="0 0 24 24" aria-hidden="true"><path d="M11 15h2v2h-2zm0-8h2v6h-2zm.99-5C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2z"/></svg>
-              </div>
-              <div class="flex flex-col min-w-0 flex-1">
-                <span class="text-[12px] font-bold text-[#111928] leading-tight">Chambre froide 1</span>
-                <span class="text-[10px] font-medium text-slate-500 leading-tight">Relevé du matin</span>
-              </div>
-              <span class="text-[9px] font-extrabold text-[#854d0e] bg-[#fef8e7] border border-[#fbdc8d] rounded-full px-1.5 py-[2px] whitespace-nowrap">Attente</span>
-            </div>
-
-            <div class="anim-row bg-white rounded-xl px-3 py-2 flex items-center gap-2.5">
-              <div class="w-7 h-7 rounded-lg bg-[#fef8e7] border border-[#fbdc8d] flex items-center justify-center shrink-0">
-                <svg class="w-3.5 h-3.5 fill-[#b45309]" viewBox="0 0 24 24" aria-hidden="true"><path d="M11 15h2v2h-2zm0-8h2v6h-2zm.99-5C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2z"/></svg>
-              </div>
-              <div class="flex flex-col min-w-0 flex-1">
-                <span class="text-[12px] font-bold text-[#111928] leading-tight">Chambre froide 2</span>
-                <span class="text-[10px] font-medium text-slate-500 leading-tight">Relevé du matin</span>
-              </div>
-              <span class="text-[9px] font-extrabold text-[#854d0e] bg-[#fef8e7] border border-[#fbdc8d] rounded-full px-1.5 py-[2px] whitespace-nowrap">Attente</span>
-            </div>
-
-            <div class="anim-row bg-white rounded-xl px-3 py-2 flex items-center gap-2.5">
-              <div class="w-7 h-7 rounded-lg bg-[#fef8e7] border border-[#fbdc8d] flex items-center justify-center shrink-0">
-                <svg class="w-3.5 h-3.5 fill-[#b45309]" viewBox="0 0 24 24" aria-hidden="true"><path d="M11 15h2v2h-2zm0-8h2v6h-2zm.99-5C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2z"/></svg>
-              </div>
-              <div class="flex flex-col min-w-0 flex-1">
-                <span class="text-[12px] font-bold text-[#111928] leading-tight">Chambre froide 3</span>
-                <span class="text-[10px] font-medium text-slate-500 leading-tight">Relevé du matin</span>
-              </div>
-              <span class="text-[9px] font-extrabold text-[#854d0e] bg-[#fef8e7] border border-[#fbdc8d] rounded-full px-1.5 py-[2px] whitespace-nowrap">Attente</span>
-            </div>
-
           </div>
         </section>
 
+        <!-- À TRAITER — chambre froide -->
+        <section class="a-card rounded-[22px] px-3 py-2.5 mb-2 text-white" style="background:#e8590b;">
+          <div class="flex items-center gap-1.5">
+            <svg class="w-[17px] h-[17px] fill-white" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 22c1.1 0 2-.9 2-2h-4c0 1.1.89 2 2 2zm6-6v-5c0-3.07-1.64-5.64-4.5-6.32V4c0-.83-.67-1.5-1.5-1.5s-1.5.67-1.5 1.5v.68C7.63 5.36 6 7.92 6 11v5l-2 2v1h16v-1l-2-2z"/></svg>
+            <h3 class="text-[17px] font-black tracking-wide uppercase leading-none">À traiter</h3>
+          </div>
+          <p class="text-white/95 text-[11.5px] font-semibold mt-1.5">1 chambre froide à relever</p>
+          <div class="flex gap-2 mt-2.5">
+            <button class="flex-1 bg-white rounded-full px-2 py-2 flex items-center justify-center gap-1.5" style="color:#e8590b;">
+              <svg class="w-[15px] h-[15px]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 8v8M8 12h8" stroke-linecap="round"/></svg>
+              <span class="text-[11.5px] font-extrabold whitespace-nowrap">Régler maintenant</span>
+            </button>
+            <button class="rounded-full px-3 py-2 flex items-center justify-center gap-1.5" style="background:rgba(255,255,255,.18);border:1px solid rgba(255,255,255,.35);">
+              <svg class="w-[15px] h-[15px] fill-white" viewBox="0 0 24 24" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-6zm2 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V3.5L18.5 9H13z"/></svg>
+              <span class="text-[11.5px] font-extrabold whitespace-nowrap">Rapports</span>
+            </button>
+          </div>
+        </section>
 
+        <!-- À TRAITER — sas / quai -->
+        <section class="rounded-[22px] px-3 py-2.5 mb-2 text-white" style="background:#ea580b;">
+          <div class="flex items-center gap-1.5">
+            <svg class="w-[17px] h-[17px] fill-white" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 22c1.1 0 2-.9 2-2h-4c0 1.1.89 2 2 2zm6-6v-5c0-3.07-1.64-5.64-4.5-6.32V4c0-.83-.67-1.5-1.5-1.5s-1.5.67-1.5 1.5v.68C7.63 5.36 6 7.92 6 11v5l-2 2v1h16v-1l-2-2z"/></svg>
+            <h3 class="text-[17px] font-black tracking-wide uppercase leading-none">À traiter</h3>
+          </div>
+          <p class="text-white/95 text-[11.5px] font-semibold mt-1.5">1 sas / quai à relever</p>
+          <button class="w-full rounded-full px-3 py-2 mt-2.5 flex items-center justify-center gap-1.5" style="background:rgba(255,255,255,.18);border:1px solid rgba(255,255,255,.35);">
+            <svg class="w-[15px] h-[15px] fill-white" viewBox="0 0 24 24" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-6zm2 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V3.5L18.5 9H13z"/></svg>
+            <span class="text-[11.5px] font-extrabold">Rapports</span>
+          </button>
+        </section>
+
+        <!-- Modules magasin -->
+        <section class="flex items-center justify-between mb-2 px-0.5">
+          <div class="flex items-center gap-2">
+            <span class="flex flex-col gap-[3px]">
+              <i class="w-[7px] h-[7px] rounded-full block" style="background:#e02c37"></i>
+              <i class="w-[7px] h-[7px] rounded-full block" style="background:#eab308"></i>
+              <i class="w-[7px] h-[7px] rounded-full block" style="background:#16a34a"></i>
+            </span>
+            <span class="text-[15px] font-extrabold text-[#111928]">Modules magasin</span>
+          </div>
+          <div class="bg-white border border-slate-200 rounded-xl px-2 py-1 text-center leading-tight">
+            <span class="block text-[12px] font-extrabold text-[#111928] leading-none">8</span>
+            <span class="block text-[8.5px] font-bold text-slate-500 uppercase tracking-wide">Zones</span>
+          </div>
+        </section>
+
+      </div>
     </div>
 
-    <!-- Barre d'onglets : collée en bas, sans espace -->
+    <!-- Menu — fixe au-dessus de la barre d'onglets -->
+    <div class="absolute left-0 right-0 flex justify-center pointer-events-none" style="bottom:86px;z-index:50;">
+      <button class="a-nudge pointer-events-auto bg-[#2563eb] text-white rounded-full pl-3 pr-3.5 py-1.5 flex items-center gap-1.5 shadow-lg">
+        <svg class="w-[14px] h-[14px]" fill="none" stroke="currentColor" stroke-width="2.8" viewBox="0 0 24 24" aria-hidden="true"><path d="M18 15l-6-6-6 6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <span class="text-[12px] font-extrabold">Menu</span>
+      </button>
+    </div>
+
+    <!-- Barre d'onglets -->
     <nav class="shrink-0 bg-white/97 backdrop-blur-md border-t border-slate-100 px-3 pt-2 pb-5">
       <div class="flex items-center justify-around">
-        <a class="flex flex-col items-center gap-1 py-1 text-[#3e4856] active:scale-95 transition-transform" href="#">
-          <div class="w-6 h-6 flex items-center justify-center">
-            <svg class="w-5 h-5 fill-[#3e4856]" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
-          </div>
-          <span class="text-[10.5px] font-bold">Prestataire</span>
+        <a class="flex flex-col items-center gap-1 py-1" href="#">
+          <div class="w-6 h-6 flex items-center justify-center"><svg class="w-5 h-5 fill-[#3e4856]" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg></div>
+          <span class="text-[10.5px] font-bold text-[#3e4856]">Prestataire</span>
         </a>
-        <a class="flex flex-col items-center gap-1 py-1 text-[#3e4856] active:scale-95 transition-transform" href="#">
-          <div class="w-6 h-6 flex items-center justify-center">
-            <svg class="w-5 h-5 fill-[#3e4856]" viewBox="0 0 24 24" aria-hidden="true"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-2 10H7v-2h10v2z"/></svg>
-          </div>
-          <span class="text-[10.5px] font-bold">Inventaire</span>
+        <a class="flex flex-col items-center gap-1 py-1" href="#">
+          <div class="w-6 h-6 flex items-center justify-center"><svg class="w-5 h-5 fill-[#3e4856]" viewBox="0 0 24 24" aria-hidden="true"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-2 10H7v-2h10v2z"/></svg></div>
+          <span class="text-[10.5px] font-bold text-[#3e4856]">Inventaire</span>
         </a>
-        <a class="flex flex-col items-center gap-1 py-0.5 active:scale-95 transition-transform" href="#">
-          <div class="bg-[#dbeafe] w-12 h-7 rounded-full flex items-center justify-center">
-            <svg class="w-5 h-5 fill-[#1d63ed]" viewBox="0 0 24 24" aria-hidden="true"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
-          </div>
+        <a class="flex flex-col items-center gap-1 py-0.5" href="#">
+          <div class="bg-[#dbeafe] w-12 h-7 rounded-full flex items-center justify-center"><svg class="w-5 h-5 fill-[#1d63ed]" viewBox="0 0 24 24" aria-hidden="true"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg></div>
           <span class="text-[10.5px] font-extrabold text-[#1d63ed]">Accueil</span>
         </a>
-        <a class="flex flex-col items-center gap-1 py-1 text-[#3e4856] active:scale-95 transition-transform" href="#">
-          <div class="w-6 h-6 flex items-center justify-center">
-            <svg class="w-5 h-5 stroke-[#3e4856] stroke-2 fill-none" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          </div>
-          <span class="text-[10.5px] font-bold">Réseau</span>
+        <a class="flex flex-col items-center gap-1 py-1" href="#">
+          <div class="w-6 h-6 flex items-center justify-center"><svg class="w-5 h-5 stroke-[#3e4856] stroke-2 fill-none" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+          <span class="text-[10.5px] font-bold text-[#3e4856]">Réseau</span>
         </a>
-        <a class="flex flex-col items-center gap-1 py-1 text-[#3e4856] active:scale-95 transition-transform" href="#">
-          <div class="w-6 h-6 flex items-center justify-center">
-            <svg class="w-5 h-5 fill-[#3e4856]" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 9.2h3V19H5zM10.6 5h2.8v14h-2.8zm5.6 8H19v6h-2.8z"/></svg>
-          </div>
-          <span class="text-[10.5px] font-bold">Rapports</span>
+        <a class="flex flex-col items-center gap-1 py-1" href="#">
+          <div class="w-6 h-6 flex items-center justify-center"><svg class="w-5 h-5 fill-[#3e4856]" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 9.2h3V19H5zM10.6 5h2.8v14h-2.8zm5.6 8H19v6h-2.8z"/></svg></div>
+          <span class="text-[10.5px] font-bold text-[#3e4856]">Rapports</span>
         </a>
       </div>
     </nav>
