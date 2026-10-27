@@ -80,20 +80,74 @@ tailwind.config = {
   .scroll::-webkit-scrollbar{ display:none; }
 
   /* ───────── animations (reprises de l'écran réel) ───────── */
-  @keyframes subtle-pulse{0%,100%{transform:scale(1);opacity:1}50%{transform:scale(1.08);opacity:.85}}
-  @keyframes live-ping{0%{transform:scale(.9);opacity:.85}50%{transform:scale(1.45);opacity:1}100%{transform:scale(.9);opacity:.85}}
-  @keyframes warn-glow{0%,100%{box-shadow:0 0 0 0 rgba(245,158,11,.45)}50%{box-shadow:0 0 0 9px rgba(245,158,11,0)}}
-  @keyframes float-arrow{0%,100%{transform:translateY(0)}50%{transform:translateY(-3px)}}
-  @keyframes sheen{0%{transform:translateX(-120%)}100%{transform:translateX(220%)}}
-  .anim-badge{ animation:subtle-pulse 2.2s infinite ease-in-out; }
-  .anim-live{ animation:live-ping 1.9s infinite ease-in-out; }
-  .anim-warn{ animation:warn-glow 2.6s infinite ease-in-out; }
-  .anim-arrow{ animation:float-arrow 2.4s infinite ease-in-out; }
+  @keyframes subtle-pulse{
+    0%,100%{ transform:scale(1)    rotate(0deg);  opacity:1 }
+    50%    { transform:scale(1.22) rotate(-4deg); opacity:.92 }
+  }
+  @keyframes live-ping{
+    0%  { transform:scale(.85); opacity:.85 }
+    50% { transform:scale(2.1);  opacity:1 }
+    100%{ transform:scale(.85); opacity:.85 }
+  }
+  @keyframes warn-glow{
+    0%,100%{ box-shadow:0 0 0 0 rgba(245,158,11,.75); transform:scale(1) }
+    50%    { box-shadow:0 0 0 16px rgba(245,158,11,0); transform:scale(1.09) }
+  }
+  @keyframes float-arrow{
+    0%,100%{ transform:translateY(0) }
+    50%    { transform:translateY(-7px) }
+  }
+  @keyframes sheen{
+    0%  { transform:translateX(-150%) }
+    100%{ transform:translateX(260%) }
+  }
+  /* nouvelles : plus visibles */
+  @keyframes shake-alert{
+    0%,100%{ transform:rotate(0deg) }
+    25%    { transform:rotate(-3deg) }
+    75%    { transform:rotate(3deg) }
+  }
+  @keyframes card-rise{
+    0%,100%{ transform:translateY(0);   box-shadow:0 8px 18px -8px rgba(233,83,20,.55) }
+    50%    { transform:translateY(-4px); box-shadow:0 16px 26px -8px rgba(233,83,20,.75) }
+  }
+  @keyframes row-slide{
+    0%,100%{ transform:translateX(0) }
+    50%    { transform:translateX(5px) }
+  }
+  @keyframes pulse-ring{
+    0%  { transform:scale(.9); opacity:.7 }
+    70% { transform:scale(1.9); opacity:0 }
+    100%{ transform:scale(1.9); opacity:0 }
+  }
+
+  .anim-badge{ animation:subtle-pulse 1.4s infinite ease-in-out; transform-origin:center; }
+  .anim-live{ animation:live-ping 1.2s infinite ease-in-out; }
+  .anim-warn{ animation:warn-glow 1.6s infinite ease-in-out; }
+  .anim-arrow{ animation:float-arrow 1.5s infinite ease-in-out; }
+  .anim-card{ animation:card-rise 2.4s infinite ease-in-out; }
+  .anim-row{ animation:row-slide 2.6s infinite ease-in-out; }
+  .anim-row:nth-of-type(2){ animation-delay:.18s }
+  .anim-row:nth-of-type(3){ animation-delay:.36s }
+
   .sheen{ position:relative; overflow:hidden; }
   .sheen::after{
-    content:''; position:absolute; top:0; left:0; width:45%; height:100%;
-    background:linear-gradient(100deg,transparent,rgba(255,255,255,.55),transparent);
-    animation:sheen 3.4s infinite ease-in-out;
+    content:''; position:absolute; top:0; left:0; width:40%; height:100%;
+    background:linear-gradient(100deg,transparent,rgba(255,255,255,.85),transparent);
+    animation:sheen 2.2s infinite ease-in-out;
+  }
+
+  /* double anneau autour de la pastille "En direct" */
+  .live-wrap{ position:relative; display:inline-flex; align-items:center; justify-content:center; }
+  .live-wrap::before{
+    content:''; position:absolute; inset:-2px; border-radius:999px;
+    background:rgba(22,163,74,.5);
+    animation:pulse-ring 1.6s infinite ease-out;
+  }
+
+  @media (prefers-reduced-motion:reduce){
+    .anim-badge,.anim-live,.anim-warn,.anim-arrow,.anim-card,.anim-row,
+    .sheen::after,.live-wrap::before{ animation:none !important; }
   }
   @media (prefers-reduced-motion:reduce){
     .anim-badge,.anim-live,.anim-warn,.anim-arrow,.sheen::after{ animation:none !important; }
@@ -183,7 +237,7 @@ tailwind.config = {
               <span class="text-[12px] font-extrabold tracking-wider uppercase">Santé du magasin</span>
             </div>
             <div class="bg-[#ecfdf3] text-[#15803d] rounded-full px-2.5 py-0.5 flex items-center gap-1.5 border border-[#dcfce7]">
-              <span class="anim-live w-1.5 h-1.5 rounded-full bg-[#16a34a] inline-block"></span>
+              <span class="live-wrap"><span class="anim-live w-1.5 h-1.5 rounded-full bg-[#16a34a] inline-block"></span></span>
               <span class="text-[11px] font-bold">En direct</span>
             </div>
           </div>
@@ -219,7 +273,7 @@ tailwind.config = {
         </section>
 
         <!-- À TRAITER — remplit jusqu'à la barre d'onglets, plus aucun vide -->
-        <section class="bg-[#e95314] rounded-[26px] p-3.5 pb-0 text-white shadow-md flex-1 flex flex-col min-h-0 mt-3 overflow-hidden">
+        <section class="anim-card bg-[#e95314] rounded-[26px] p-3.5 pb-0 text-white flex-1 flex flex-col min-h-0 mt-3 overflow-hidden">
           <div class="flex items-center justify-between">
             <div class="flex items-center gap-2">
               <svg class="w-[18px] h-[18px] fill-white" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 22c1.1 0 2-.9 2-2h-4c0 1.1.89 2 2 2zm6-6v-5c0-3.07-1.64-5.64-4.5-6.32V4c0-.83-.67-1.5-1.5-1.5s-1.5.67-1.5 1.5v.68C7.63 5.36 6 7.92 6 11v5l-2 2v1h16v-1l-2-2z"/></svg>
@@ -232,7 +286,7 @@ tailwind.config = {
           <!-- Les 3 chambres froides : remplit la carte jusqu'a la barre d'onglets -->
           <div class="flex flex-col gap-1.5 flex-1 min-h-0 pb-3">
 
-            <div class="bg-white rounded-xl px-3 py-2 flex items-center gap-2.5">
+            <div class="anim-row bg-white rounded-xl px-3 py-2 flex items-center gap-2.5">
               <div class="w-7 h-7 rounded-lg bg-[#fef8e7] border border-[#fbdc8d] flex items-center justify-center shrink-0">
                 <svg class="w-3.5 h-3.5 fill-[#b45309]" viewBox="0 0 24 24" aria-hidden="true"><path d="M11 15h2v2h-2zm0-8h2v6h-2zm.99-5C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2z"/></svg>
               </div>
@@ -243,7 +297,7 @@ tailwind.config = {
               <span class="text-[9px] font-extrabold text-[#854d0e] bg-[#fef8e7] border border-[#fbdc8d] rounded-full px-1.5 py-[2px] whitespace-nowrap">Attente</span>
             </div>
 
-            <div class="bg-white rounded-xl px-3 py-2 flex items-center gap-2.5">
+            <div class="anim-row bg-white rounded-xl px-3 py-2 flex items-center gap-2.5">
               <div class="w-7 h-7 rounded-lg bg-[#fef8e7] border border-[#fbdc8d] flex items-center justify-center shrink-0">
                 <svg class="w-3.5 h-3.5 fill-[#b45309]" viewBox="0 0 24 24" aria-hidden="true"><path d="M11 15h2v2h-2zm0-8h2v6h-2zm.99-5C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2z"/></svg>
               </div>
@@ -254,7 +308,7 @@ tailwind.config = {
               <span class="text-[9px] font-extrabold text-[#854d0e] bg-[#fef8e7] border border-[#fbdc8d] rounded-full px-1.5 py-[2px] whitespace-nowrap">Attente</span>
             </div>
 
-            <div class="bg-white rounded-xl px-3 py-2 flex items-center gap-2.5">
+            <div class="anim-row bg-white rounded-xl px-3 py-2 flex items-center gap-2.5">
               <div class="w-7 h-7 rounded-lg bg-[#fef8e7] border border-[#fbdc8d] flex items-center justify-center shrink-0">
                 <svg class="w-3.5 h-3.5 fill-[#b45309]" viewBox="0 0 24 24" aria-hidden="true"><path d="M11 15h2v2h-2zm0-8h2v6h-2zm.99-5C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2z"/></svg>
               </div>
